@@ -1,0 +1,30 @@
+public class Solution {
+    private List<List<Integer>> result = new ArrayList<List<Integer>>();
+	public List<List<Integer>> combinationSum(int[] candidates, int target) 
+	{
+		Arrays.sort(candidates);
+		findanswer(0,new ArrayList<Integer>(),candidates,target);
+        return result;
+    }
+	public void findanswer(int index,List<Integer>ans,int[] candidates,int target)
+	{
+		while(index < candidates.length && candidates[index]<= target)
+		{
+		    //添加该数，并更新target
+			if(candidates[index] <= target/2)
+			{
+				List<Integer> l1 = new ArrayList<Integer>(ans);
+				l1.add(candidates[index]);
+				findanswer(index,l1,candidates,target-candidates[index]);
+			}
+			//找到满足条件的，更新list，并添加到result中
+			if(candidates[index] == target)
+			{
+				List<Integer> l1 = new ArrayList<Integer>(ans);
+				l1.add(candidates[index]);
+				result.add(l1);
+			}
+			index++;
+		}
+	}
+}
