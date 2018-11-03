@@ -1,30 +1,20 @@
-public class Solution {
-    private List<List<Integer>> result = new ArrayList<List<Integer>>();
-	public List<List<Integer>> combinationSum(int[] candidates, int target) 
-	{
-		Arrays.sort(candidates);
-		findanswer(0,new ArrayList<Integer>(),candidates,target);
-        return result;
+class Solution {
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+    List<List<Integer>> list = new ArrayList<>();  //list用来存储最后的所有组合
+    Arrays.sort(nums);
+    backtrack(list, new ArrayList<>(), nums, target, 0);//nums候选数  
+    return list;
+}
+//                                  所有组合            一个组合              候选数         目标数       0     
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
+    if(remain < 0) return;
+    else if(remain == 0) list.add(new ArrayList<>(tempList));
+    else{ 
+        for(int i = start; i < nums.length; i++){
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, remain - nums[i], i); // not i + 1 because we can reuse same elements
+            tempList.remove(tempList.size() - 1);
+        }
     }
-	public void findanswer(int index,List<Integer>ans,int[] candidates,int target)
-	{
-		while(index < candidates.length && candidates[index]<= target)
-		{
-		    //添加该数，并更新target
-			if(candidates[index] <= target/2)
-			{
-				List<Integer> l1 = new ArrayList<Integer>(ans);
-				l1.add(candidates[index]);
-				findanswer(index,l1,candidates,target-candidates[index]);
-			}
-			//找到满足条件的，更新list，并添加到result中
-			if(candidates[index] == target)
-			{
-				List<Integer> l1 = new ArrayList<Integer>(ans);
-				l1.add(candidates[index]);
-				result.add(l1);
-			}
-			index++;
-		}
-	}
+}
 }
