@@ -1,0 +1,2 @@
+三个指针，left right 和 cur，left 的左边都为0,right的右边都为2，cur遍历数组，遇到0和left交换，left cur++。 遇到2 和right交换，right--，cur 不动
+因为交换后的cur还没判断。当遇到1的时候cur++。
