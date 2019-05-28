@@ -1,0 +1,12 @@
+中位数：将一个集合拆分为两个等长的集合x和y，x中的所有的元素都小于y中的元素。
+1.将集合A拆成两部分以索引i,将集合B拆成两部分以索引j
+2.三种情况：
+(a) (j=0 or i = mi=m or \text{B}[j-1] \leq \text{A}[i])B[j−1]≤A[i]) and
+    (i = 0(i=0 or j = nj=n or \text{A}[i-1] \leq \text{B}[j])A[i−1]≤B[j]) 
+正好
+
+(b) j > 0j>0 and i < mi<m and \text{B}[j - 1] > \text{A}[i]B[j−1]>A[i] 
+i小，增加i
+
+(c) i > 0i>0 and j < nj<n and \text{A}[i - 1] > \text{B}[j]A[i−1]>B[j] 
+i大，减小i
