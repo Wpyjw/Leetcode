@@ -1,0 +1,12 @@
+二分搜索
+但要注意首元素和尾元素的搜索条件的区别
+首元素  
+nums[mid]>target || nums[mid]==target      hi=mid;
+nums[mid]<target                           lo=mid+1;
+尾元素
+nums[mid]>target || nums[mid]==target      lo=mid+1;
+nums[mid]>target                           hi=mid;
+
+同时注意判断-1,-1输出的时间。
+另lo=0,hi=nums.length,保证数组长度为1时也能进入一次循环。
+当leftIdx==nums.length || nums[leftIdx]!=target ,return -1;
