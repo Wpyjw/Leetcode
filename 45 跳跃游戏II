@@ -1,2 +1,2 @@
 贪心算法，curEnd前所能达到的最远距离是CurFurest。curFurest控制在curEnd中能达到的最远距离，当i==curEnd时，说明必须有一次跳跃，跳跃次数++，curEnd指向当前curEnd
-里的元素所能达到的最大距离，也就是curFurest的位置。
+里的元素所能达到的最大距离，也就是curFurest的位置。大于curFurest的元素在当前跳跃次数下不会到达。
