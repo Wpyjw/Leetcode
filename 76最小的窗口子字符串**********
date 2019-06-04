@@ -1,0 +1,8 @@
+滑动窗口
+先滑动右指针，当滑动窗口中的字符覆盖了t中的字符时，开始保存索引，再滑动左指针，开始找最小的满足条件的子字串。
+变量：left,right  滑动窗口的位置
+minLeft,minLen 保存最小滑动窗口的位置
+HashMap<Character, Integer> map 存储t中含有的元素和它们在t中出现的次数
+slideWindow<Character,Integer> 保存s中滑动窗口中的t中的字符的数量
+count 保存s中已出现的t中的满足条件的字符的数量。
+当count==0的时候，证明满足的子字符串的条件，开始移动Left，找最小长度的子字符串。
