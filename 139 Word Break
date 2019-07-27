@@ -1,0 +1,7 @@
+动态规划，利用new boolean wordDict 来解决
+for(int i=1;i<s.length()+1;i++){
+  for(int j=0;j<i;j++){
+    //如果第j个字符及其之前的字符能在wordDict中找到，那么如果索引j(第j+1个字符)到索引i-1(第i个字符)包含在wordDict中的话，则第i个字符设true.
+    if(f[j] && wordDict.contains(s.substring(j,i)) return true;
+  }
+}
