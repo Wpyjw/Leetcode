@@ -41,3 +41,6 @@ class Solution {
         return cnt;
     }
 }
+
+## 33
+##思路：使用二分搜索法
