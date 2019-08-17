@@ -43,4 +43,25 @@ class Solution {
 }
 
 ## 33
-##思路：使用二分搜索法
+## 思路：使用二分搜索法，nums[mid]如果大于nums[0]，说明左边是有顺序的。这时如果判断target在nums[mid]的左边，则令light=mid-1
+注意：while(left<right){left=mid+1; right=mid;}
+     while(left<=right){left=mid+1; right=mid-1;//防止right=mid跑不出循环}
+     class Solution {
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if(nums[mid]==target) return mid;
+            if (nums[mid] >= nums[0]) { 
+                if (nums[mid] > target && target>=nums[0]) right = mid-1;
+                else left = mid + 1;
+            } else { 
+                if (nums[mid] < target && target<=nums[nums.length-1]) left = mid + 1;
+                else right = mid-1;
+            }
+        }
+        return  -1;
+    }
+}
+     
