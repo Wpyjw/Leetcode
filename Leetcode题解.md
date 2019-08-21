@@ -64,4 +64,28 @@ class Solution {
         return  -1;
     }
 }
+
+## 积水问题
+### 思路1：双指针，考虑实际情况，接水量由两侧的最大最大高度控制，能够把两侧兜住。判断左边和右边的高度的大小，当height[left]<height[right]
+时，左指针移动，移动后判断左指针的当前高度和leftMax的大小。若leftMax小，则更新leftMax。否则，用leftMax-height[left]计算当前所能盛水的面积**为什么不是Math.min(leftMax,rightMax)?因为开始的时候已经判断过height[left]和height[right]的大小，由于height[left]<height[right]<=rightMax,所以当左边移动时，一定是左边的最大小于右边的最大的时候**
+### 代码
+```java
+public static int trap(int[] height) {
+        int left = 0, right = height.length-1;
+        int leftMax = 0, rightMax = 0;
+        int res = 0;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] >= leftMax) leftMax = height[left];
+                else res += (leftMax - height[left]);
+                left++;
+            } else {
+                if (height[right] >= rightMax) rightMax = height[right];
+                res += ( rightMax-height[right]);
+                right--;
+            }
+        }
+        return res;
+    }
+```
      
