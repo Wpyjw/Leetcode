@@ -88,4 +88,27 @@ public static int trap(int[] height) {
         return res;
     }
 ```
+
+### 思路2 使用单调递减栈来做
+### 利用单调递减栈里的元素都比栈顶大的特性，当当前欲添加的元素大于栈顶时，栈顶元素a弹出，计算a与它的两侧的最短高度之间所能承载的水量，当
+栈顶元素小于当前欲压栈元素，就弹出，同时计算这一层的面积。
+### 代码
+```
+public int trap(int[] height) {
+          if (height == null || height.length == 0) return 0;
+        Stack<Integer> s = new Stack();
+        int cur = 0, res = 0;
+        while (cur < height.length) {
+            while (!s.isEmpty() && height[s.peek()] < height[cur]) {
+                int temp=s.pop();
+                if(s.isEmpty()) break;
+                int dis=cur-s.peek()-1;
+                int minHeight=Math.min(height[s.peek()],height[cur])-height[temp];
+                res+=minHeight*dis;
+            }
+            s.push(cur++);
+        }
+        return res;
+    }
+```
      
