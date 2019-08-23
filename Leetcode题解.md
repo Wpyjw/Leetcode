@@ -1,6 +1,7 @@
 ## 713 
 ### 思路：滑动窗口+双指针 以右指针为计算的索引，right-left+1是右指针所能产生的满足条件的个数。要注意k<=1的情况，k<=1直接返回0.
 ### 代码：
+```
 class Solution 
 {
 public:
@@ -22,11 +23,12 @@ public:
         return count;
     }
 };
-
+```
 ## 560 和为K的数组
 ### 思路：使用Map<和，次数> preSum 来存储之前出现过的和，利用sum来对所有的元素进行逐一叠加，然后判断sum-k是否在preSum中，如果存在，说明
 可以用sum-preSum的形式来得到一个前序和，因为有可能出现不同的组合都等于前序和，我们存储次数。每次找到后就用cnt加上前序和的次数，就得到了最终的结果。
 ### 代码
+```
 class Solution {
     public int subarraySum(int[] nums, int k) {
         if(nums==null || nums.length==0) return 0;
@@ -41,10 +43,12 @@ class Solution {
         return cnt;
     }
 }
-
+```
 ## 33
 ## 思路：使用二分搜索法，nums[mid]如果大于nums[0]，说明左边是有顺序的。这时如果判断target在nums[mid]的左边，则令light=mid-1
-注意：while(left<right){left=mid+1; right=mid;}
+注意：
+```
+while(left<right){left=mid+1; right=mid;}
      while(left<=right){left=mid+1; right=mid-1;//防止right=mid跑不出循环}
      class Solution {
     public int search(int[] nums, int target) {
@@ -64,7 +68,7 @@ class Solution {
         return  -1;
     }
 }
-
+```
 ## 积水问题
 ### 思路1：双指针，考虑实际情况，接水量由两侧的最大最大高度控制，能够把两侧兜住。判断左边和右边的高度的大小，当height[left]<height[right]
 时，左指针移动，移动后判断左指针的当前高度和leftMax的大小。若leftMax小，则更新leftMax。否则，用leftMax-height[left]计算当前所能盛水的面积**为什么不是Math.min(leftMax,rightMax)?因为开始的时候已经判断过height[left]和height[right]的大小，由于height[left]<height[right]<=rightMax,所以当左边移动时，一定是左边的最大小于右边的最大的时候**
@@ -203,5 +207,40 @@ class Solution {
         nums[j]=temp;
     }
     
+}
+```
+
+## Set Matrix Zeroes
+## 思路：设定两个变量，用来存放firstRow和firstCol的状态，用第一列和第一行来表示该一整行的状态。
+## 代码：
+```
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        if(matrix==null || matrix.length==0) return;
+        boolean firstRow=false,firstCol=false;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]==0){
+                    if(i==0) firstRow=true;
+                    if(j==0 ) firstCol=true;
+                    else{
+                        matrix[0][j]=0;
+                        matrix[i][0]=0;
+                    } 
+                }
+                
+            }
+        }
+        for(int i=1;i<matrix.length;i++){
+            for(int j=1;j<matrix[0].length;j++){
+                if(matrix[i][0]==0 || matrix[0][j]==0) matrix[i][j]=0;
+            }
+        }
+        if(firstRow) 
+            for(int j=0;j<matrix[0].length;j++) matrix[0][j]=0;
+        if(firstCol)
+            for(int i=0;i<matrix.length;i++) matrix[i][0]=0;
+            
+    }
 }
 ```
