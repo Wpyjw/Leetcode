@@ -112,3 +112,96 @@ public int trap(int[] height) {
     }
 ```
      
+     
+ ## Max Area of Island
+ ### 思路：DFS(递归)
+ ### 代码
+ ```
+ class Solution {
+    boolean[][] seen;
+    public  int area(int[][] grid,int i,int j){
+        if(i<0 || i>=grid.length || j<0 || j>=grid[0].length || seen[i][j] || grid[i][j]==0) return 0;
+        seen[i][j]=true;
+        return 1+area(grid,i-1,j)+area(grid,i+1,j)+area(grid,i,j-1)+area(grid,i,j+1);
+    }
+    public int maxAreaOfIsland(int[][] grid) {
+        int ans=0;
+        seen=new boolean[grid.length][grid[0].length];
+        for(int r=0;r<grid.length;r++){
+            for(int c=0;c<grid[0].length;c++){
+                if(grid[r][c]==1 && !seen[r][c]){
+                    seen[r][c]=true;
+                    ans=Math.max(ans,1+area(grid,r-1,c)+area(grid,r+1,c)+area(grid,r,c-1)+area(grid,r,c+1));
+                }
+                
+            }
+        }
+        return ans;
+    }
+}
+ ```
+ 
+ ### 思路2 DFS(堆栈或队列)
+ ### 代码
+ ```
+ class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+        boolean[][] seen = new boolean[grid.length][grid[0].length];
+        int[] dr = new int[]{1, -1, 0, 0};
+        int[] dc = new int[]{0, 0, 1, -1};
+
+        int ans = 0;
+        for (int r0 = 0; r0 < grid.length; r0++) {
+            for (int c0 = 0; c0 < grid[0].length; c0++) {
+                if (grid[r0][c0] == 1 && !seen[r0][c0]) {
+                    int shape = 0;
+                    Stack<int[]> stack = new Stack();
+                    stack.push(new int[]{r0, c0});
+                    seen[r0][c0] = true;
+                    while (!stack.empty()) {
+                        int[] node = stack.pop();
+                        int r = node[0], c = node[1];
+                        shape++;
+                        for (int k = 0; k < 4; k++) {
+                            int nr = r + dr[k];
+                            int nc = c + dc[k];
+                            if (0 <= nr && nr < grid.length &&
+                                    0 <= nc && nc < grid[0].length &&
+                                    grid[nr][nc] == 1 && !seen[nr][nc]) {
+                                stack.push(new int[]{nr, nc});
+                                seen[nr][nc] = true;
+                            }
+                        }
+                    }
+                    ans = Math.max(ans, shape);
+                }
+            }
+        }
+        return ans;
+    }
+}
+ ```
+## 75 SORTING COLORS
+### 思路：
+- i遇到0就换到左边,遇到2就换到右边，遇到1就跳过。
+- 两个指针point0:记录左边的第一个1的位置，其左边都是0；point2记录2的位置，右边都是2，其是0或1。遍历数组，当遇到0的时候，和Point0交换位置，此时nums[i]是1,nums[point0]是0，i和Point0都加1。当遇到2的时候，i和point2换位置，换位置之后nums[i]不一定是0或1，所以需要重新遍历i。
+### 代码：
+```
+class Solution {
+    public void sortColors(int[] nums) {
+        if(nums==null || nums.length==0 ) return;
+        int point0=0,point2=nums.length-1;
+        for(int i=0;i<=point2;i++){
+           if(nums[i]==0) swap(nums,i,point0++);
+           else if(nums[i]==2) swap(nums,i--,point2--);
+        }
+       
+    }
+    public void swap(int[] nums,int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+    
+}
+```
